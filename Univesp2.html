@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inundação em São Paulo.Projeto Integrador Univesp</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+
+    #map { height: 250px; }
+   
+    
+body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            font-size: 15px;
+
+ 
+}
+    </style>
+</head>
+
+<body>
+    <h1><p style="font-size: 27px;">Inundação em São Paulo. Projeto Integrador Univesp.</p></h1>
+    <h1><p style="font-size: 22px;">Data e Hora Atual</p></h1>
+    <p id="dataHora"></p>
+    <!-- Cria um cabeçalho na página -->
+    <div id="map"></div>
+    <!-- Cria uma div com o id "map" para exibir o mapa interativo -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<form>
+    <br><label for="nome">Nome:</label><br>
+    <input type="text" id="nome" name="nome"><br>
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email"><br>
+    <label for="mensagem">Mensagem:</label><br>
+    <textarea id="mensagem" name="mensagem"></textarea><br>
+    <button type="submit">Enviar</button>
+</form>
+
+    <script>
+        var map = L.map('map').setView([-23.55052, -46.633308], 12);
+        // Cria um mapa interativo com o Leaflet.js, centrado em São Paulo
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+        // Adiciona uma camada de azulejos do OpenStreetMap ao mapa
+        var marker = L.marker([-23.55052, -46.633308]).addTo(map);
+        // Adiciona um marcador no mapa nas coordenadas fornecidas
+        marker.bindPopup("<b>Inundação aqui!</b>").openPopup();
+        // Abre um popup no marcador com a mensagem "Inundação aqui!"
+
+function atualizarDataHora() {
+      const data = new Date();
+      const options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        weekday: 'long',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        timeZone: 'America/Sao_Paulo'
+      };
+      const formatada = data.toLocaleDateString('pt-BR', options);
+      document.getElementById('dataHora').textContent = formatada;
+    }
+
+    atualizarDataHora();
+    setInterval(atualizarDataHora, 1000);
+
+    </script>
+</body>
+</html>
